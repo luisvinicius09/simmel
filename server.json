@@ -1,0 +1,41 @@
+{
+	"clients": [
+		{
+			"id": "15641956-123214",
+			"userId": "1346-12345",
+			"name": "Client #1",
+			"documentType": "CPF",
+			"document": "12345678912",
+			"email": "client@email.com",
+			"phoneNumber": 123456789,
+			"createdAt": "",
+			"updatedAt": ""
+		},
+		{
+			"id": "1566-14",
+			"userId": "1346-12345",
+			"name": "Client #2",
+			"documentType": "CPF",
+			"document": "12345678912",
+			"email": "client@email.com",
+			"phoneNumber": 123456789,
+			"createdAt": "",
+			"updatedAt": ""
+		}
+	],
+	"charges": [
+		{
+			"id": "132419865-198516",
+			"userId": "1564-5132",
+			"userClientId": "15641956-123214",
+			"userProductId": "",
+			"checkoutId": "",
+			"amountInCents": 845,
+			"expireDate": "",
+			"selectedPaymentTypes": ["PIX", "BILLET"],
+			"status": "PENDING",
+			"createdAt": "",
+			"updatedAt": ""
+		}
+	]
+}
