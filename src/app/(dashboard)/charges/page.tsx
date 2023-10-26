@@ -1,15 +1,13 @@
-async function getData(): Promise<any> {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/charges`);
+import { api } from '@/utils/api';
 
-	if (!res.ok) {
-		throw new Error('Failed to fetch data');
-	}
+async function getData(): Promise<any[]> {
+	const res = await api.get<{ charges: object[] }>('/charges');
 
-	return res.json();
+	return res.data.charges;
 }
 
-export default function Charges() {
-	const data = getData();
+export default async function Charges() {
+	const data = await getData();
 
 	return (
 		<>
@@ -20,14 +18,18 @@ export default function Charges() {
 					<button className='bg-primary text-white p-2 rounded-lg'>+ Nova cobrança</button>
 				</div>
 
-				<div className=''>
-					<a
-						href='#'
-						className='h-12 bg-secondary/70 items-center rounded-lg flex text-center px-4'
-					>
-						<p className='font-bold'>Cobrança #1</p>
-					</a>
-				</div>
+				{data.map((charge, idx) => {
+					return (
+						<div className='' key={idx}>
+							<a
+								href='#'
+								className='h-12 bg-secondary/70 items-center rounded-lg flex text-center px-4'
+							>
+								<p className='font-bold'>{charge?.id}</p>
+							</a>
+						</div>
+					);
+				})}
 			</div>
 		</>
 	);
