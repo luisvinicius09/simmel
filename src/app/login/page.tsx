@@ -1,8 +1,13 @@
 'use client';
 
 import { z } from 'zod';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { api } from '@/utils/api';
+import { deleteCookie, setCookie } from 'cookies-next';
+import { AxiosError } from 'axios';
+import { useEffect } from 'react';
 
 type LoginInputs = {
 	email: string;
@@ -15,14 +20,44 @@ const loginSchema = z.object({
 });
 
 export default function Login() {
+	const router = useRouter();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { isSubmitting, errors },
 	} = useForm<LoginInputs>({ resolver: zodResolver(loginSchema) });
 
+	useEffect(() => {
+		deleteCookie('token');
+	}, []);
+
 	const onSubmit: SubmitHandler<LoginInputs> = (data) => {
-		console.log(data);
+		try {
+			api
+				.post<{ token: string }>('/authenticate', {
+					email: data.email,
+					password: data.password,
+				})
+				.then((res) => {
+					setCookie('token', res.data.token, {
+						httpOnly: true,
+						// expires
+					});
+					router.push('/dashboard');
+
+					return;
+				});
+		} catch (err) {
+			// TODO: handle error
+
+			if (err instanceof AxiosError) {
+				// check error code and display message accordingly
+				console.log(err.message);
+			}
+
+			console.log(err);
+		}
 	};
 
 	return (
@@ -38,6 +73,7 @@ export default function Login() {
 							<label className='font-bold'>Login</label>
 							<input
 								{...register('email', { required: true })}
+								type='email'
 								className='bg-secondary rounded-md text-md p-2 shadow-md'
 							/>
 						</div>
@@ -45,9 +81,11 @@ export default function Login() {
 
 					<section>
 						<div className='flex flex-col'>
+							<p>user-test-pw</p>
 							<label className='font-bold'>Password</label>
 							<input
 								{...register('password', { required: true })}
+								type='password'
 								className='bg-secondary rounded-md text-md p-2 shadow-md'
 							/>
 						</div>
@@ -58,6 +96,7 @@ export default function Login() {
 
 						<button
 							type='submit'
+							disabled={isSubmitting}
 							className='bg-primary text-white uppercase rounded-md py-2 w-full'
 						>
 							Login
