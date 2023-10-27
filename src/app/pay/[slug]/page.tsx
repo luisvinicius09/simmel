@@ -1,4 +1,14 @@
+import { Button } from '@/components/ui/button';
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
 import axios from 'axios';
+import { InformationForm } from '../_components/information-form';
 
 const getCheckoutInfo = async (slug: string): Promise<object> => {
 	// TODO: fetch data from slug
@@ -20,89 +30,21 @@ export default function Pay({ params }: { params: { slug: string } }) {
 	// const checkoutInfo = getCheckoutInfo(params.slug);
 	// console.log(checkoutInfo);
 
-	// 			name: client.name,
-	// 			documentNumber: client.document,
-	// 			documentType: client.documentType,
-	// 			address: {
-	// 				city: clientAddress.city,
-	// 				complement: clientAddress.complement ?? '',
-	// 				district: clientAddress.district,
-	// 				number: clientAddress.number,
-	// 				stateCode: clientAddress.stateCode,
-	// 				street: clientAddress.street,
-	// 				zipCode: clientAddress.zipCode,
-	// 			},
-
 	return (
-		<div className=''>
-			<div>
-				<p>Informações</p>
-				<div>
-					<p>Valor: </p>
-				</div>
-				-{' '}
-			</div>
+		<div className='flex justify-center h-full min-h-screen items-center py-12'>
+			<Card className='h-full w-[450px]'>
+				<CardHeader>
+					<h3 className='scroll-m-20 text-2xl font-semibold tracking-tight'>Checkout</h3>
 
-			<div>
-				<fieldset>
-					<label htmlFor='name'>Nome</label>
-					<input name='name' type='text' />
-				</fieldset>
+					<CardTitle>Informações</CardTitle>
 
-				<fieldset>
-					<label htmlFor='name'>Tipo de document</label>
+					<CardDescription>Valor: R$420.00</CardDescription>
+				</CardHeader>
 
-					<div>
-						<label htmlFor='cpf'>CPF</label>
-						<input name='cpf' type='radio' id='cpf' />
-					</div>
-
-					<div>
-						<label htmlFor='cnpj'>CNPJ</label>
-						<input name='cnpf' type='radio' id='cnpj' />
-					</div>
-				</fieldset>
-
-				<fieldset>
-					<label htmlFor='document'>Document</label>
-					<input name='document' type='text' />
-				</fieldset>
-
-				<fieldset>
-					<label htmlFor='city'>Cidade</label>
-					<input name='city' type='text' />
-				</fieldset>
-
-				<fieldset>
-					<label htmlFor='complement'>Complemento</label>
-					<input name='complement' type='text' />
-				</fieldset>
-
-				<fieldset>
-					<label htmlFor='district'>Bairro</label>
-					<input name='district' type='text' />
-				</fieldset>
-
-				<fieldset>
-					<label htmlFor='number'>Numero</label>
-					<input name='number' type='text' />
-				</fieldset>
-
-				<fieldset>
-					<label htmlFor='stateCode'>Estado</label>
-					<input name='stateCode' type='text' />
-				</fieldset>
-
-				<fieldset>
-					<label htmlFor='street'>Rua</label>
-					<input name='street' type='text' />
-				</fieldset>
-
-				<fieldset>
-					<label htmlFor='zipCode'>Codigo Postal</label>
-					<input name='zipCode' type='text' />
-				</fieldset>
-			</div>
+				<CardContent>
+					<InformationForm />
+				</CardContent>
+			</Card>
 		</div>
 	);
 }
