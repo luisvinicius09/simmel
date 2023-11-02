@@ -1,3 +1,7 @@
+// TODO: fetch clients from api
+
+import Link from 'next/link';
+
 export default function Clients() {
 	return (
 		<>
@@ -6,17 +10,22 @@ export default function Clients() {
 					<div className='flex justify-between items-center mb-4'>
 						<div className='w-32 h-8 bg-accent rounded-lg'></div>
 
-						<button className='bg-primary text-white p-2 rounded-lg'>
+						{/*// TODO: This is redirect to route with form */}
+						<Link href='/clients/create' className='bg-primary text-white p-2 rounded-lg'>
 							+ Novo Cliente
-						</button>
+						</Link>
 					</div>
 
+					{/*// TODO: There should be a map here with clients */}
+					{/*// TODO: When you click on a client it should redirect to its page, display info and history */}
 					<div className=''>
 						<a
 							href='#'
 							className='h-12 bg-secondary/70 items-center rounded-lg flex text-center px-4'
 						>
-							<p className='font-bold'>Cliente #1</p>
+							<Link href='/clients/1' className='font-bold'>
+								Cliente #1
+							</Link>
 						</a>
 					</div>
 				</div>
