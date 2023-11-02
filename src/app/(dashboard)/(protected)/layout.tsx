@@ -1,11 +1,8 @@
-import { McLaren } from 'next/font/google';
 import Link from 'next/link';
-
-const mclaren = McLaren({ weight: '400', subsets: ['latin'] });
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className={'' + ' ' + mclaren.className}>
+		<div className={''}>
 			<div className='flex flex-col h-screen relative'>
 				<div className='bg-secondary rounded-b-[150px] absolute top-0 left-0 h-48 w-full z-0 shadow-lg'></div>
 
