@@ -6,17 +6,15 @@ Things to do
   - [ ] Graphs
 - [ ]
 - [ ] Charges page
-  - [ ] Should be able to fetch charges (React Query- GET)
-  - [ ] Should be able to crate a new charge (React Query - POST - Mutation?)
-    - [ ] Charge creation should be through a modal
+  - [x] Should be able to fetch charges
+  - [ ] Should be able to create a new charge
 - [ ] Clients page
-  - [ ] Should be able to fetch charges (React Query - GET)
-  - [ ] Should be able to create a new client (React Query - POST - Mutation?)
-    - [ ] Client creation should be through a modal
+  - [x] Should be able to fetch charges
+  - [ ] Should be able to create a new client
 - [ ] Settings page
 - [-] Login page -> Basic one done
-- [ ] Logic to handle authorization and route protection
-- [ ] Error page
+- [x] Logic to handle authorization and route protection
+- [x] Error page
 
 Things I dream to this project
 
