@@ -31,7 +31,17 @@ api.interceptors.response.use(onResponse, onResponseError);
 
 api.interceptors.request.use(
 	(config) => {
-		const token = getCookie('token');
+		// const token = getCookie('token');
+
+		let token: string | undefined = '';
+
+		if (typeof window === 'undefined') {
+			const { cookies } = require('next/headers');
+
+			token = cookies().get('token')?.value;
+		} else {
+			token = getCookie('token');
+		}
 
 		if (token) {
 			config.headers.Authorization = `Bearer ${token}`;
