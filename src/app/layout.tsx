@@ -3,8 +3,8 @@ import './globals.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang='en' className={GeistSans.className}>
-			<body className='container bg-accent z-10'>{children}</body>
+		<html lang='en' className={GeistSans.className + ' container z-10'}>
+			<body className='bg-accent '>{children}</body>
 		</html>
 	);
 }

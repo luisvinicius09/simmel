@@ -1,3 +1,4 @@
+import CreateChargeForm from '@/components/create-charge-form';
 import Link from 'next/link';
 
 export default async function CreateCharge() {
@@ -12,7 +13,7 @@ export default async function CreateCharge() {
 			</div>
 
 			<div>
-				<h1>Create charge here</h1>
+				<CreateChargeForm />
 			</div>
 		</div>
 	);
