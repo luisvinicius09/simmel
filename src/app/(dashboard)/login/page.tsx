@@ -41,7 +41,7 @@ export default function Login() {
 				})
 				.then((res) => {
 					setCookie('token', res.data.token, {
-						httpOnly: true,
+						// httpOnly: true,
 						// expires
 					});
 					router.push('/dashboard');
