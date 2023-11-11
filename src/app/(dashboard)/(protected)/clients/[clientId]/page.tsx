@@ -3,7 +3,7 @@ import { api } from '@/utils/api';
 import Link from 'next/link';
 
 const getData = async (clientId: string): Promise<ClientDTO> => {
-	const res = await api.get<ClientDTO>(`/clients/${clientId}`);
+	const res = await api.get<ClientDTO>(`/client/${clientId}`);
 
 	return res.data;
 };
