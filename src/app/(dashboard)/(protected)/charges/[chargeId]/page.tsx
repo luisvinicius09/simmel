@@ -3,7 +3,7 @@ import { api } from '@/utils/api';
 import Link from 'next/link';
 
 const getData = async (chargeId: string): Promise<ChargeDTO> => {
-	const res = await api.get<ChargeDTO>(`/charges/${chargeId}`);
+	const res = await api.get<ChargeDTO>(`/charge/${chargeId}`);
 
 	return res.data;
 };
