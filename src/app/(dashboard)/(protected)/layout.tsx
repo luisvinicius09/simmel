@@ -1,6 +1,13 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+	const pathname = usePathname();
+
+	const currentBasePath = pathname.split('/')[1];
+
 	return (
 		<div className={''}>
 			<div className='flex flex-col h-screen relative'>
@@ -23,38 +30,78 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 							<hr className='bg-primary my-4 border-[2px] border-primary' />
 
 							<div className=''>
-								<div className='py-2 pl-4 my-2 rounded-xl bg-secondary'>
+								<div
+									className={`py-2 pl-4 my-2 rounded-xl ${
+										currentBasePath === 'dashboard' ? 'bg-secondary' : ''
+									}`}
+								>
 									<Link href='/dashboard'>
 										<div className='flex'>
 											<p className='text-accent'>icon</p>
-											<p className='opacity-100'>Inicio</p>
+											<p
+												className={`${
+													currentBasePath === 'dashboard' ? 'opacity-100' : 'opacity-60'
+												}`}
+											>
+												Inicio
+											</p>
 										</div>
 									</Link>
 								</div>
 
-								<div className='py-2 pl-4 my-2 rounded-xl'>
+								<div
+									className={`py-2 pl-4 my-2 rounded-xl ${
+										currentBasePath === 'charges' ? 'bg-secondary' : ''
+									}`}
+								>
 									<Link href='/charges'>
 										<div className='flex'>
 											<p className='text-accent'>icon</p>
-											<p className='opacity-60'>Cobranças</p>
+											<p
+												className={`${
+													currentBasePath === 'charges' ? 'opacity-100' : 'opacity-60'
+												}`}
+											>
+												Cobranças
+											</p>
 										</div>
 									</Link>
 								</div>
 
-								<div className='py-2 pl-4 my-2 rounded-xl'>
+								<div
+									className={`py-2 pl-4 my-2 rounded-xl ${
+										currentBasePath === 'clients' ? 'bg-secondary' : ''
+									}`}
+								>
 									<Link href='/clients'>
 										<div className='flex'>
 											<p className='text-accent'>icon</p>
-											<p className='opacity-60'>Clientes</p>
+											<p
+												className={`${
+													currentBasePath === 'clients' ? 'opacity-100' : 'opacity-60'
+												}`}
+											>
+												Clientes
+											</p>
 										</div>
 									</Link>
 								</div>
 
-								<div className='py-2 pl-4 my-2 rounded-xl'>
+								<div
+									className={`py-2 pl-4 my-2 rounded-xl ${
+										currentBasePath === 'settings' ? 'bg-secondary' : ''
+									}`}
+								>
 									<Link href='/settings'>
 										<div className='flex'>
 											<p className='text-accent'>icon</p>
-											<p className='opacity-60'>Configurações</p>
+											<p
+												className={`${
+													currentBasePath === 'settings' ? 'opacity-100' : 'opacity-60'
+												}`}
+											>
+												Configurações
+											</p>
 										</div>
 									</Link>
 								</div>
