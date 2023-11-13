@@ -33,6 +33,8 @@ import { Card, CardContent, CardHeader } from './ui/card';
 import { api } from '@/utils/api';
 import { IMaskMixin } from 'react-imask';
 import { Ref } from 'react';
+import { ClientDTO } from '@/shared/interfaces/client.interface';
+import { ProductDTO } from '@/shared/interfaces/product.interface';
 
 enum PaymentType {
 	BOLETO = 'BOLETO',
@@ -58,7 +60,13 @@ const MaskedInput = IMaskMixin(({ inputRef, ...props }) => (
 	<Input {...props} ref={inputRef as Ref<HTMLInputElement>} />
 ));
 
-export default function CreateChargeForm() {
+export default function CreateChargeForm({
+	products,
+	clients,
+}: {
+	products: ProductDTO[];
+	clients: ClientDTO[];
+}) {
 	const form = useForm<FormValues>({
 		resolver: zodResolver(createChargeFormSchema),
 		defaultValues: {
@@ -79,6 +87,8 @@ export default function CreateChargeForm() {
 				return;
 			});
 	}
+
+	console.log(clients);
 
 	return (
 		<>
@@ -108,7 +118,11 @@ export default function CreateChargeForm() {
 											<SelectContent>
 												<SelectGroup>
 													<SelectLabel>Produtos</SelectLabel>
-													<SelectItem value='1'>1</SelectItem>
+													{products.map((product) => (
+														<SelectItem key={product.id} value={product.id}>
+															{product.name}
+														</SelectItem>
+													))}
 												</SelectGroup>
 											</SelectContent>
 										</Select>
@@ -138,7 +152,11 @@ export default function CreateChargeForm() {
 											<SelectContent>
 												<SelectGroup>
 													<SelectLabel>Clientes</SelectLabel>
-													<SelectItem value='1'>1</SelectItem>
+													{clients.map((client) => (
+														<SelectItem key={client.id} value={client.id}>
+															{client.name}
+														</SelectItem>
+													))}
 												</SelectGroup>
 											</SelectContent>
 										</Select>
