@@ -7,10 +7,10 @@ Things to do
 - [ ]
 - [ ] Charges page
   - [x] Should be able to fetch charges
-  - [ ] Should be able to create a new charge
+  - [x] Should be able to create a new charge
 - [ ] Clients page
   - [x] Should be able to fetch charges
-  - [ ] Should be able to create a new client
+  - [x] Should be able to create a new client
 - [ ] Settings page
 - [-] Login page -> Basic one done
 - [x] Logic to handle authorization and route protection
