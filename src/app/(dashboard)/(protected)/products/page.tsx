@@ -2,6 +2,8 @@ import { ProductDTO } from '@/shared/interfaces/product.interface';
 import { api } from '@/utils/api';
 import Link from 'next/link';
 
+export const revalidate = 0;
+
 async function getData(): Promise<ProductDTO[]> {
 	const res = await api.get<{ products: ProductDTO[] }>('/products');
 

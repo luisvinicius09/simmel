@@ -2,6 +2,8 @@ import { ChargeDTO } from '@/shared/interfaces/charge.interface';
 import { api } from '@/utils/api';
 import Link from 'next/link';
 
+export const revalidate = 0;
+
 async function getData(): Promise<ChargeDTO[]> {
 	const res = await api.get<{ charges: ChargeDTO[] }>('/charges');
 

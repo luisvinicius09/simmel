@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { ClientDTO } from '@/shared/interfaces/client.interface';
 import { api } from '@/utils/api';
 
+export const revalidate = 0;
+
 async function getData(): Promise<ClientDTO[]> {
 	const res = await api.get<{ clients: ClientDTO[] }>('/clients');
 
