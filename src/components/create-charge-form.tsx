@@ -88,10 +88,22 @@ export default function CreateChargeForm({
 			});
 	}
 
-	console.log(clients);
-
 	return (
 		<>
+			<Button
+				onClick={() => {
+					onSubmit({
+						userClientId: null,
+						userProductId: null,
+						amountInCents: '1324',
+						expireDate: new Date('2023-11-22T03:00:00.000Z'),
+						selectedPaymentTypes: [PaymentType.BOLETO, PaymentType.CREDIT_CARD],
+					});
+				}}
+			>
+				Criar cobrança Automaticamente
+			</Button>
+
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-4'>
 					<Card>

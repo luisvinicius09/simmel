@@ -39,7 +39,7 @@ const createClientFormSchema = z.object({
 	documentType: z.enum(['CPF', 'CNPJ']),
 	document: z.string(),
 	email: z.string().email(),
-	phoneNumber: z.string(),
+	phoneNumber: z.number(),
 	address: z.object({
 		street: z.string(),
 		number: z.string(),
@@ -58,6 +58,9 @@ export default function CreateClientForm() {
 		resolver: zodResolver(createClientFormSchema),
 		defaultValues: {
 			documentType: 'CPF',
+			address: {
+				complement: '',
+			},
 		},
 	});
 
@@ -74,6 +77,29 @@ export default function CreateClientForm() {
 
 	return (
 		<>
+			<Button
+				onClick={() => {
+					onSubmit({
+						name: 'Testando',
+						documentType: 'CPF',
+						document: '12345678910',
+						email: 'test@test.com',
+						phoneNumber: 123456789,
+						address: {
+							complement: '',
+							street: 'Test Rua',
+							number: '123',
+							zipCode: '123457',
+							city: 'Test',
+							district: 'Distruct',
+							stateCode: 'TE',
+						},
+					});
+				}}
+			>
+				Criar cliente Automaticamente
+			</Button>
+
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-4'>
 					<Card>
