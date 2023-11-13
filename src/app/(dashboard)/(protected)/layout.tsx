@@ -3,6 +3,33 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+type NavMenuItemProps = {
+	pathTo: string;
+	name: string;
+	currentBasePath: string;
+};
+
+function NavMenuItem({ pathTo, name, currentBasePath }: NavMenuItemProps) {
+	return (
+		<div
+			className={`py-2 pl-4 my-2 rounded-xl ${
+				currentBasePath === pathTo.split('/')[1] ? 'bg-secondary' : ''
+			}`}
+		>
+			<Link href={pathTo}>
+				<div className='flex'>
+					<p className='text-accent'>icon</p>
+					<p
+						className={`${currentBasePath === pathTo.split('/')[1] ? 'opacity-100' : 'opacity-60'}`}
+					>
+						{name}
+					</p>
+				</div>
+			</Link>
+		</div>
+	);
+}
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
 	const pathname = usePathname();
 
@@ -30,81 +57,21 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 							<hr className='bg-primary my-4 border-[2px] border-primary' />
 
 							<div className=''>
-								<div
-									className={`py-2 pl-4 my-2 rounded-xl ${
-										currentBasePath === 'dashboard' ? 'bg-secondary' : ''
-									}`}
-								>
-									<Link href='/dashboard'>
-										<div className='flex'>
-											<p className='text-accent'>icon</p>
-											<p
-												className={`${
-													currentBasePath === 'dashboard' ? 'opacity-100' : 'opacity-60'
-												}`}
-											>
-												Inicio
-											</p>
-										</div>
-									</Link>
-								</div>
+								<NavMenuItem
+									pathTo='/dashboard'
+									name='Dashboard'
+									currentBasePath={currentBasePath}
+								/>
 
-								<div
-									className={`py-2 pl-4 my-2 rounded-xl ${
-										currentBasePath === 'charges' ? 'bg-secondary' : ''
-									}`}
-								>
-									<Link href='/charges'>
-										<div className='flex'>
-											<p className='text-accent'>icon</p>
-											<p
-												className={`${
-													currentBasePath === 'charges' ? 'opacity-100' : 'opacity-60'
-												}`}
-											>
-												Cobranças
-											</p>
-										</div>
-									</Link>
-								</div>
+								<NavMenuItem pathTo='/charges' name='Cobranças' currentBasePath={currentBasePath} />
 
-								<div
-									className={`py-2 pl-4 my-2 rounded-xl ${
-										currentBasePath === 'clients' ? 'bg-secondary' : ''
-									}`}
-								>
-									<Link href='/clients'>
-										<div className='flex'>
-											<p className='text-accent'>icon</p>
-											<p
-												className={`${
-													currentBasePath === 'clients' ? 'opacity-100' : 'opacity-60'
-												}`}
-											>
-												Clientes
-											</p>
-										</div>
-									</Link>
-								</div>
+								<NavMenuItem pathTo='/clients' name='Clientes' currentBasePath={currentBasePath} />
 
-								<div
-									className={`py-2 pl-4 my-2 rounded-xl ${
-										currentBasePath === 'settings' ? 'bg-secondary' : ''
-									}`}
-								>
-									<Link href='/settings'>
-										<div className='flex'>
-											<p className='text-accent'>icon</p>
-											<p
-												className={`${
-													currentBasePath === 'settings' ? 'opacity-100' : 'opacity-60'
-												}`}
-											>
-												Configurações
-											</p>
-										</div>
-									</Link>
-								</div>
+								<NavMenuItem
+									pathTo='/settings'
+									name='Configurações'
+									currentBasePath={currentBasePath}
+								/>
 							</div>
 						</div>
 
