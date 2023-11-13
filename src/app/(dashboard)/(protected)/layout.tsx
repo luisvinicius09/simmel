@@ -67,6 +67,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
 								<NavMenuItem pathTo='/clients' name='Clientes' currentBasePath={currentBasePath} />
 
+								<NavMenuItem pathTo='/products' name='Produtos' currentBasePath={currentBasePath} />
+
 								<NavMenuItem
 									pathTo='/settings'
 									name='Configurações'
