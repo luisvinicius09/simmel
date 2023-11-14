@@ -6,6 +6,7 @@ export type ChargeDTO = {
 	amountInCents: number;
 	expireDate: Date;
 	externalId?: string;
+	selectedPaymentTypes: string[];
 	createdAt: Date;
 	updatedAt: Date;
 };
