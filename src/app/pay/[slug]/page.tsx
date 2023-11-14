@@ -9,13 +9,17 @@ import {
 } from '@/components/ui/card';
 import axios from 'axios';
 import { InformationForm } from '../_components/information-form';
+import { CheckoutDTO } from '@/shared/interfaces/checkout.interface';
+import { ChargeDTO } from '@/shared/interfaces/charge.interface';
 
-const getCheckoutInfo = async (slug: string): Promise<object> => {
-	// TODO: fetch data from slug
+const getCheckoutInfo = async (
+	slug: string
+): Promise<{ checkout: CheckoutDTO; charge: ChargeDTO }> => {
+	const res = await axios.get<{ checkout: CheckoutDTO; charge: ChargeDTO }>(
+		`${process.env.NEXT_PUBLIC_BACKEND_URL}/checkout/${slug}`
+	);
 
-	const checkout = await axios.get(`/checkout/${slug}`);
-
-	return checkout;
+	return res.data;
 };
 
 const userInfo = async () => {
@@ -26,8 +30,8 @@ const clientInfo = async () => {
 	// TODO: fetch client data if available
 };
 
-export default function Pay({ params }: { params: { slug: string } }) {
-	// const checkoutInfo = getCheckoutInfo(params.slug);
+export default async function Pay({ params }: { params: { slug: string } }) {
+	const checkoutInfo = await getCheckoutInfo(params.slug);
 	// console.log(checkoutInfo);
 
 	return (
@@ -38,7 +42,7 @@ export default function Pay({ params }: { params: { slug: string } }) {
 
 					<CardTitle>Informações</CardTitle>
 
-					<CardDescription>Valor: R$420.00</CardDescription>
+					<CardDescription>Valor: R${checkoutInfo.charge.amountInCents}</CardDescription>
 				</CardHeader>
 
 				<CardContent>
