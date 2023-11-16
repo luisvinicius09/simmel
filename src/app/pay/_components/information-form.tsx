@@ -15,6 +15,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -37,7 +39,12 @@ const informationFormSchema = z.object({
 
 type InformationFormInputs = z.infer<typeof informationFormSchema>;
 
+type AvailablePaymentMethods = 'credit_card' | 'boleto' | 'pix';
+
 export function InformationForm() {
+	const [selectedPaymentMethod, setSelectedPaymentMethod] =
+		useState<AvailablePaymentMethods>('credit_card');
+
 	const form = useForm<InformationFormInputs>({
 		resolver: zodResolver(informationFormSchema),
 		defaultValues: {
@@ -280,22 +287,57 @@ export function InformationForm() {
 						</CardHeader>
 
 						<CardContent className='flex gap-2'>
-							<Card>
-								<CardContent>
-									<p>Cartão de Credito</p>
-								</CardContent>
-							</Card>
-							<Card>
-								<CardContent>
-									<p>Boleto</p>
-								</CardContent>
-							</Card>
-							<Card>
-								<CardContent>
-									<p>Pix</p>
-								</CardContent>
-							</Card>
+							<RadioGroup
+								defaultValue='credit_card'
+								onValueChange={(value: AvailablePaymentMethods) => setSelectedPaymentMethod(value)}
+								className='grid grid-flow-col auto-cols-fr text-center'
+							>
+								<>
+									<RadioGroupItem value='credit_card' id='credit_card' hidden />
+									<Label
+										htmlFor='credit_card'
+										className={clsx(
+											'flex items-center justify-center py-4 rounded hover:cursor-pointer',
+											selectedPaymentMethod === 'credit_card' && 'ring-2 ring-red-900'
+										)}
+									>
+										<span>Cartão de Credito</span>
+									</Label>
+								</>
+
+								<>
+									<RadioGroupItem value={'boleto'} id='boleto' hidden />
+									<Label
+										htmlFor='boleto'
+										className={clsx(
+											'flex items-center justify-center py-4  rounded hover:cursor-pointer',
+											selectedPaymentMethod === 'boleto' && 'ring-2 ring-red-900'
+										)}
+									>
+										<span>Boleto</span>
+									</Label>
+								</>
+
+								<>
+									<RadioGroupItem value={'pix'} id='pix' hidden />
+									<Label
+										htmlFor='pix'
+										className={clsx(
+											'flex items-center justify-center py-4  rounded hover:cursor-pointer',
+											selectedPaymentMethod === 'pix' && 'ring-2 ring-red-900'
+										)}
+									>
+										<span>Pix</span>
+									</Label>
+								</>
+							</RadioGroup>
 						</CardContent>
+
+						{/** TODO: create credit card payment info card */}
+
+						{/* <Card>
+							<CardContent></CardContent>
+						</Card> */}
 					</Card>
 
 					<Button type='submit' className='w-full'>
