@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -41,7 +42,7 @@ type InformationFormInputs = z.infer<typeof informationFormSchema>;
 
 type AvailablePaymentMethods = 'credit_card' | 'boleto' | 'pix';
 
-export function InformationForm() {
+export function InformationForm({ slug }: { slug: string }) {
 	const [selectedPaymentMethod, setSelectedPaymentMethod] =
 		useState<AvailablePaymentMethods>('credit_card');
 
@@ -56,8 +57,68 @@ export function InformationForm() {
 	});
 
 	async function onSubmit(values: InformationFormInputs) {
-		console.log(values);
-		return;
+		const paymentUrl = selectedPaymentMethod;
+
+		axios
+			.post(`/${paymentUrl}`, { slug: slug, client: values })
+			.then((res) => {
+				// check the response and redirect the user
+
+				console.log(res);
+
+				return;
+			})
+			.catch((err) => {
+				console.error(err);
+
+				// handle error, display info
+				return;
+			});
+	}
+
+	function PaymentMethodInfo(selectedPaymentMethod: AvailablePaymentMethods) {
+		switch (selectedPaymentMethod) {
+			case 'credit_card':
+				return (
+					<>
+						<CardHeader>
+							<h3>Cartão de Credito</h3>
+						</CardHeader>
+
+						<CardContent>{/** TODO: add form to capture credit card information */}</CardContent>
+					</>
+				);
+
+			case 'boleto':
+				return (
+					<>
+						<CardHeader>
+							<h3>Boleto</h3>
+						</CardHeader>
+
+						<CardContent>
+							<ul>
+								<li>Gere seu boleto</li>
+							</ul>
+						</CardContent>
+					</>
+				);
+
+			case 'pix':
+				return (
+					<>
+						<CardHeader>
+							<h3>Pix</h3>
+						</CardHeader>
+
+						<CardContent>
+							<ul>
+								<li>Gere seu pix</li>
+							</ul>
+						</CardContent>
+					</>
+				);
+		}
 	}
 
 	return (
@@ -297,8 +358,8 @@ export function InformationForm() {
 									<Label
 										htmlFor='credit_card'
 										className={clsx(
-											'flex items-center justify-center py-4 rounded hover:cursor-pointer',
-											selectedPaymentMethod === 'credit_card' && 'ring-2 ring-red-900'
+											'flex items-center justify-center py-4 ring-2 ring-slate-200 rounded hover:cursor-pointer',
+											selectedPaymentMethod === 'credit_card' && 'ring-slate-900'
 										)}
 									>
 										<span>Cartão de Credito</span>
@@ -310,8 +371,8 @@ export function InformationForm() {
 									<Label
 										htmlFor='boleto'
 										className={clsx(
-											'flex items-center justify-center py-4  rounded hover:cursor-pointer',
-											selectedPaymentMethod === 'boleto' && 'ring-2 ring-red-900'
+											'flex items-center justify-center py-4 ring-2 ring-slate-200 rounded hover:cursor-pointer',
+											selectedPaymentMethod === 'boleto' && 'ring-slate-900'
 										)}
 									>
 										<span>Boleto</span>
@@ -323,8 +384,8 @@ export function InformationForm() {
 									<Label
 										htmlFor='pix'
 										className={clsx(
-											'flex items-center justify-center py-4  rounded hover:cursor-pointer',
-											selectedPaymentMethod === 'pix' && 'ring-2 ring-red-900'
+											'flex items-center justify-center py-4 ring-2 ring-slate-200 rounded hover:cursor-pointer',
+											selectedPaymentMethod === 'pix' && 'ring-slate-900'
 										)}
 									>
 										<span>Pix</span>
@@ -333,11 +394,7 @@ export function InformationForm() {
 							</RadioGroup>
 						</CardContent>
 
-						{/** TODO: create credit card payment info card */}
-
-						{/* <Card>
-							<CardContent></CardContent>
-						</Card> */}
+						<Card className='m-4'>{PaymentMethodInfo(selectedPaymentMethod)}</Card>
 					</Card>
 
 					<Button type='submit' className='w-full'>
