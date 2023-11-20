@@ -60,7 +60,7 @@ export function InformationForm({ slug }: { slug: string }) {
 		const paymentUrl = selectedPaymentMethod;
 
 		axios
-			.post(`/${paymentUrl}`, { slug: slug, client: values })
+			.post(`/checkout/create/${paymentUrl}`, { slug: slug, client: values })
 			.then((res) => {
 				// check the response and redirect the user
 
