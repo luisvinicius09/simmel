@@ -46,7 +46,7 @@ export default async function Pay({ params }: { params: { slug: string } }) {
 				</CardHeader>
 
 				<CardContent>
-					<InformationForm />
+					<InformationForm slug={params.slug} />
 				</CardContent>
 			</Card>
 		</div>
